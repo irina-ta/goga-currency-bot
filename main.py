@@ -126,7 +126,7 @@ def print_one_currency(message):
             pass
         # traceback.print_exc()
     
-
+print('prestart')
 if __name__ == '__main__':
     print('start')
     try:
