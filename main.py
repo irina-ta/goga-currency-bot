@@ -39,6 +39,7 @@ def format_period(df: pd.DataFrame) -> str:
 
 @bot.message_handler(commands=['сегодня'])
 def print_today(message):
+    print(message.text)
 
     df = get_currencies(date.today())
 
@@ -47,7 +48,7 @@ def print_today(message):
 
 @bot.message_handler(commands=['на'])
 def print_on_day(message):
-    
+    print(message.text)
     def send_format_date_error():
         bot.send_message(message.chat.id, 'Введите дату в формате dd.mm.yyyy, например: \n \\на 31.12.2012')
 
@@ -77,6 +78,7 @@ def print_on_day(message):
 @bot.message_handler(commands=['валюта'])
 def print_one_currency(message):
     # print(message)
+    print(message.text)
     try:
         text: str = message.text
         text = text.split(' ')[1]
@@ -126,5 +128,8 @@ def print_one_currency(message):
     
 
 if __name__ == '__main__':
-    bot.infinity_polling()
-    
+    print('start')
+    try:
+        bot.infinity_polling()
+    except:
+        print('dropped')
