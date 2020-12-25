@@ -8,6 +8,7 @@ pytelegrambotapi = "*"
 beautifulsoup4 = "*"
 matplotlib = "*"
 tabulate = "*"
+pandas = "*"
 
 [dev-packages]
 
