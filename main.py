@@ -1,5 +1,6 @@
 
 import traceback
+import io
 from datetime import date, datetime, timedelta
 import telebot
 from tabulate import tabulate
@@ -111,20 +112,20 @@ def print_one_currency(message):
             plt.xlabel("Дата")
             plt.ylabel("Курс")
             
-            filename = 'plot_' + str(message.chat.id) + '.png'
-            plt.savefig(filename, bbox_inches="tight")
+            buffer = io.BytesIO()
+            plt.savefig(buffer, bbox_inches="tight", format='png')
             
-            with open(filename, 'rb') as f:
-                bot.send_photo(message.chat.id, photo=f)
+            buffer.seek(0)
+            bot.send_photo(message.chat.id, photo=buffer)
             plt.close()
         else:
             bot.send_message(message.chat.id, 'Неизвестный код валюты')
     except: 
         try:
             bot.send_message(message.chat.id, 'Кажется, что-то пошло не так. Попробуйте позже')
+            traceback.print_exc()
         except: 
             pass
-        # traceback.print_exc()
     
 print('prestart')
 if __name__ == '__main__':
