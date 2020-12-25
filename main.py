@@ -17,9 +17,16 @@ token = '1421014662:AAEbW9Gk94QFLYUH1wF_7FxnA-B51XoqkWQ'
 bot = telebot.TeleBot(token)
 
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start', 'help', 'помощь'])
 def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+    lines = ['\\start \\help - это сообщение'
+            , '\\сегодня - курс валют на сегодня'
+            , '\\на {Дата} - курс валют на дату. \nДата должна быть в формате dd.mm.yyyy. Например (31.12.2012)'
+            , '\\валюта {Код Валюты} - динамика курса за последний месяц. Например \\валюта USD \nКод валюты можно узнать вызвав \\сегодня. '
+    ]
+    mes = '\n\t'.join(lines)
+    bot.send_message(message.chat.id, mes)
+
 
 
 def format_list(df: pd.DataFrame) -> str: 
